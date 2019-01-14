@@ -2,13 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XFormsEventToCommand"
+            xmlns:behaviors="clr-namespace:XFormsEventToCommand.Behaviors"
+            xmlns:converters="clr-namespace:XFormsEventToCommand.Converters"
              x:Class="XFormsEventToCommand.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="10,20,0,0">
+        <Label Text="Event To Command Behavior Demo" FontAttributes="Bold" HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding People}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label  Text="{Binding FullName}" TextColor="Black" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding OutputAgeCommand}" Converter="{StaticResource SelectedItemConverter}" />
+            </ListView.Behaviors>
+        </ListView>
+        <Label Text="{Binding SelectedItemText}" />
     </StackLayout>
 
 </ContentPage>

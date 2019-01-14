@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XFormsEventToCommand.ViewModel;
 
 namespace XFormsEventToCommand
 {
@@ -12,6 +13,7 @@ namespace XFormsEventToCommand
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new MainPageViewModel();
         }
     }
 }
